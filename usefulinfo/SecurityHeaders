@@ -1,0 +1,5 @@
+X-Frame-Options: deny
+X-XSS-Protection:1;mode=block
+
+these headers instruct the user's web browser to implement some
+additional security measures help prevent XSS and Clickjacking attacks

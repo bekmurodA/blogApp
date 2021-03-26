@@ -1,0 +1,42 @@
+"You can  think of a GO web app as a chain of ServeHTTP() methods being 
+called one after another"
+
+The Pattern
+-----------
+
+The standard pattern for creating your own middleware looks like this:
+
+func myMiddleware(next http.Handler) http.Handler{
+	fn:=func(w http.ReponseWriter, r *http.Request){
+	//TODO: Execute our middleware logic here..
+	next.ServeHTTP(w,r)
+	}
+	return http.HandlerFunc(fn)
+}
+
+The myMiddleware() function is essentially wrapper around the next 
+handler.
+When fn is run it executes our middleware logic and then transfers 
+control to the next handler by calling it's ServeHTTP() method
+Al last we convert the closure to http.Handler and return it using the
+http.HandlerFunc() adapter
+
+Postioning the middleware
+-------------------------
+middleware before servemux
+//acts on every request
+
+myMiddleware -> servemux -> application handler
+
+good use  of this is to log  every request, something you want to do 
+with all the requests
+
+middleware after servemux
+//acts specific routes
+
+servemux -> middleware -> application handler
+
+an example of this would be something like authorization
+
+
+

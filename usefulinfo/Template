@@ -1,0 +1,40 @@
+Template actions and Functions
+-------------------------------
+
+Action 				     Decription
+_____________________________________________________________________
+{{if .Foo}} C1 {{else}} C2 {{end}} | If .Foo is not empty then render 
+				   | the contetn C1, else C2
+_____________________________________________________________________
+{{with .Foo}} C1{{else}} C2 {{end}}| If .Foo is not empty, then set dot to
+				   | the value of .Foo and render C1, else
+				   | C2 
+_________________________________________________________________________
+{{range .}} C1 {{else}} C2 {{end}} |if the length of .Foo is greater than 
+				   |zero then loop over each element,     
+ 				   |setting dot to the value of each elem
+			           |and rendering C1,else render C2.
+				   |Underlying type: array,slice,map,channel___________________________________________________________________________
+
+
+* For all thee actions the {{else}} clause is optional.
+* the with and range actions change the value of dot. 
+	
+{{eq .Foo .Bar}} Yields true if .Foo is equal to .Bar
+
+{{ne .Foo .Bar}} Yields true if .Foo is not equal to .Bar
+
+{{not .Foo}} Yields the boolean negation of .Foo
+
+{{or .Foo .Bar}} Yields .Foo if .Foo is not empty; otherwise yields .Bar
+
+{{index .Foo i}} Yields the value of .Foo at index i. The underlying type of
+.Foo must be a map, slice or array
+
+{{print "%s-%s" .Foo .Bar}} Yields the formatted string containing the .Foo
+and .Bar values. Works in the same way as fmt.Sprintf().
+
+{{len .Foo}} Yields the length of .Foo as an integer
+
+{{$bar:=len .Foo}} Assign the length of .Foo to the template variable $bar
+
